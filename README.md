@@ -1,6 +1,6 @@
-# 🍴 회사 맛집 지도 (Food Map)
+# 🍴 광화문EAST 맛집 지도 (Food Map)
 
-회사 주변 맛집을 **카테고리별로** 모아보고, 카카오맵에 마커로 표시하며,
+광화문EAST 주변 맛집을 **카테고리별로** 모아보고, 카카오맵에 마커로 표시하며,
 사용자가 **직접 식당을 추가**할 수 있는 웹앱입니다.
 
 - **프론트엔드/백엔드**: Next.js 14 (App Router)
@@ -59,10 +59,10 @@ npm run dev
 | `NEXT_PUBLIC_KAKAO_MAP_KEY` | 카카오 JavaScript 키 (브라우저 노출됨) |
 | `SUPABASE_URL` | Supabase 프로젝트 URL (서버 전용) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service_role 키 (서버 전용, **비공개**) |
-| `NEXT_PUBLIC_COMPANY_NAME` | (선택) 회사 이름 — 기준 마커 라벨. 기본 `KT광화문빌딩East` |
-| `NEXT_PUBLIC_COMPANY_ADDRESS` | (선택) 회사 주소 |
-| `NEXT_PUBLIC_COMPANY_LAT` | (선택) 회사 위도 — 지도 기준점. 기본 KT광화문빌딩East |
-| `NEXT_PUBLIC_COMPANY_LNG` | (선택) 회사 경도 |
+| `NEXT_PUBLIC_COMPANY_NAME` | (선택) 광화문EAST 이름 — 기준 마커 라벨. 기본 `KT광화문빌딩East` |
+| `NEXT_PUBLIC_COMPANY_ADDRESS` | (선택) 광화문EAST 주소 |
+| `NEXT_PUBLIC_COMPANY_LAT` | (선택) 광화문EAST 위도 — 지도 기준점. 기본 KT광화문빌딩East |
+| `NEXT_PUBLIC_COMPANY_LNG` | (선택) 광화문EAST 경도 |
 
 > ⚠️ `SUPABASE_SERVICE_ROLE_KEY`는 RLS를 우회하는 키입니다. 절대 `NEXT_PUBLIC_`을
 > 붙이거나 클라이언트에 노출하지 마세요. 모든 DB 접근은 `/api/restaurants` 서버
@@ -81,7 +81,7 @@ npm run dev
 ```powershell
 git init
 git add .
-git commit -m "feat: 회사 맛집 지도 초기 버전"
+git commit -m "feat: 광화문EAST 맛집 지도 초기 버전"
 # GitHub 저장소 생성 후
 git remote add origin https://github.com/<you>/food-map.git
 git push -u origin main
@@ -103,7 +103,7 @@ components/
   AddRestaurantForm.tsx     # 장소검색 기반 식당 추가 모달
 lib/
   types.ts                  # 카테고리/타입 정의
-  config.ts                 # 회사 기준 좌표
+  config.ts                 # 광화문EAST 기준 좌표
   supabaseServer.ts         # 서버 전용 Supabase 클라이언트
   useKakaoLoader.ts         # 카카오 SDK 로더 훅
   markerImage.ts            # 카테고리 색상 마커 이미지
@@ -124,4 +124,4 @@ supabase/
 ## 6. 커스터마이징
 
 - 카테고리/색상: [`lib/types.ts`](lib/types.ts)의 `CATEGORIES`, `CATEGORY_COLORS`
-- 회사 위치: `.env.local`의 `NEXT_PUBLIC_COMPANY_LAT/LNG`
+- 광화문EAST 위치: `.env.local`의 `NEXT_PUBLIC_COMPANY_LAT/LNG`

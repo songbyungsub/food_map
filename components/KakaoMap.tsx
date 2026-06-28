@@ -9,9 +9,9 @@ interface KakaoMapProps {
   restaurants: Restaurant[];
   // 사이드바에서 선택해 포커스할 식당 (지도 중심 이동)
   focusId: string | null;
-  // 회사(기준점) 좌표
+  // 광화문EAST(기준점) 좌표
   center: { lat: number; lng: number };
-  // 회사(기준점) 이름 — 기준 마커 라벨에 사용
+  // 광화문EAST(기준점) 이름 — 기준 마커 라벨에 사용
   centerName?: string;
   onSelect?: (id: string) => void;
 }
@@ -20,7 +20,7 @@ export default function KakaoMap({
   restaurants,
   focusId,
   center,
-  centerName = "회사",
+  centerName = "광화문EAST",
   onSelect,
 }: KakaoMapProps) {
   const { loaded, error } = useKakaoLoader();
@@ -39,7 +39,7 @@ export default function KakaoMap({
     });
     infoWindowRef.current = new window.kakao.maps.InfoWindow({ content: "", removable: true });
 
-    // 회사 위치 표시 (기본 마커)
+    // 광화문EAST 위치 표시 (기본 마커)
     new window.kakao.maps.Marker({
       position: new window.kakao.maps.LatLng(center.lat, center.lng),
       title: centerName,
