@@ -10,6 +10,7 @@ export interface Restaurant {
   place_url: string | null;
   created_at: string;
   recommend_count?: number; // 추천수
+  top_menu: string | null; // 대표 메뉴
 }
 
 export interface Comment {

@@ -12,11 +12,13 @@ create table if not exists public.restaurants (
   memo text,
   place_url text,
   created_at timestamptz not null default now(),
-  recommend_count integer not null default 0
+  recommend_count integer not null default 0,
+  top_menu text
 );
 
--- 기존 테이블이 존재할 경우를 위해 추천수 컬럼 안전하게 추가
+-- 기존 테이블이 존재할 경우를 위해 컬럼들 안전하게 추가
 alter table public.restaurants add column if not exists recommend_count integer not null default 0;
+alter table public.restaurants add column if not exists top_menu text;
 
 create index if not exists restaurants_category_idx on public.restaurants (category);
 create index if not exists restaurants_created_at_idx on public.restaurants (created_at desc);

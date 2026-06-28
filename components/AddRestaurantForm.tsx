@@ -41,6 +41,7 @@ export default function AddRestaurantForm({ onClose, onAdded }: AddRestaurantFor
   const [selected, setSelected] = useState<SelectedPlace | null>(null);
   const [category, setCategory] = useState<Category>("한식");
   const [memo, setMemo] = useState("");
+  const [topMenu, setTopMenu] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -97,6 +98,7 @@ export default function AddRestaurantForm({ onClose, onAdded }: AddRestaurantFor
       lng: selected.lng,
       memo: memo.trim() || null,
       place_url: selected.place_url || null,
+      top_menu: topMenu.trim() || null,
     };
 
     try {
@@ -172,6 +174,15 @@ export default function AddRestaurantForm({ onClose, onAdded }: AddRestaurantFor
                   </option>
                 ))}
               </select>
+            </label>
+            <label className="field">
+              <span>대표 메뉴 (선택)</span>
+              <input
+                type="text"
+                placeholder="예: 우육면, 특선 초밥"
+                value={topMenu}
+                onChange={(e) => setTopMenu(e.target.value)}
+              />
             </label>
             <label className="field">
               <span>메모 (선택)</span>

@@ -774,6 +774,16 @@ body > div {
   background: #f8f9fa;
 }
 
+.sidebar-footer {
+  padding: 10px 16px;
+  font-size: 11px;
+  color: #adb5bd;
+  border-top: 1px solid #f1f3f5;
+  text-align: center;
+  background: #f8f9fa;
+  font-weight: 500;
+}
+
 @media (max-width: 720px) {
   .app {
     flex-direction: column;

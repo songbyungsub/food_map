@@ -106,6 +106,9 @@ export default function Sidebar({
             );
           })}
       </div>
+      <div className="sidebar-footer">
+        Made by AX운영혁신팀
+      </div>
     </aside>
   );
 }

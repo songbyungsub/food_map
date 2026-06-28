@@ -38,6 +38,7 @@ export async function PUT(
       typeof body.road_address === "string" ? body.road_address.trim() || null : null,
     memo: typeof body.memo === "string" ? body.memo.trim() || null : null,
     place_url: typeof body.place_url === "string" ? body.place_url.trim() || null : null,
+    top_menu: typeof body.top_menu === "string" ? body.top_menu.trim() || null : null,
   };
 
   const { data, error } = await getSupabaseServer()

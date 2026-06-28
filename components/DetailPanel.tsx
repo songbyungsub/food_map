@@ -37,6 +37,7 @@ export default function DetailPanel({
   const [editRoadAddress, setEditRoadAddress] = useState(restaurant.road_address || "");
   const [editMemo, setEditMemo] = useState(restaurant.memo || "");
   const [editPlaceUrl, setEditPlaceUrl] = useState(restaurant.place_url || "");
+  const [editTopMenu, setEditTopMenu] = useState(restaurant.top_menu || "");
   const [updatingRestaurant, setUpdatingRestaurant] = useState(false);
   const [deletingRestaurant, setDeletingRestaurant] = useState(false);
 
@@ -64,6 +65,7 @@ export default function DetailPanel({
     setEditRoadAddress(restaurant.road_address || "");
     setEditMemo(restaurant.memo || "");
     setEditPlaceUrl(restaurant.place_url || "");
+    setEditTopMenu(restaurant.top_menu || "");
 
     // 댓글 수정 상태 초기화
     setEditingCommentId(null);
@@ -180,6 +182,7 @@ export default function DetailPanel({
           road_address: editRoadAddress.trim(),
           memo: editMemo.trim(),
           place_url: editPlaceUrl.trim(),
+          top_menu: editTopMenu.trim(),
         }),
       });
 
@@ -369,6 +372,16 @@ export default function DetailPanel({
             </label>
 
             <label className="field">
+              <span>대표 메뉴</span>
+              <input
+                type="text"
+                value={editTopMenu}
+                onChange={(e) => setEditTopMenu(e.target.value)}
+                placeholder="예: 우육면, 특선 초밥"
+              />
+            </label>
+
+            <label className="field">
               <span>메모</span>
               <input
                 type="text"
@@ -439,6 +452,16 @@ export default function DetailPanel({
                 {restaurant.road_address && restaurant.address && (
                   <div className="address-sub">(지번) {restaurant.address}</div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {restaurant.top_menu && (
+            <div className="info-row">
+              <span className="info-icon">⭐️</span>
+              <div className="info-text">
+                <span style={{ fontWeight: 600, color: "#e8590c", marginRight: "4px" }}>대표 메뉴:</span>
+                <span>{restaurant.top_menu}</span>
               </div>
             </div>
           )}
