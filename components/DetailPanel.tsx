@@ -47,7 +47,8 @@ export default function DetailPanel({
   const [editCommentContent, setEditCommentContent] = useState("");
   const [savingCommentId, setSavingCommentId] = useState<string | null>(null);
 
-  const commentsEndRef = useRef<HTMLDivElement>(null);
+  const commentListRef = useRef<HTMLDivElement>(null);
+  const scrollOnNextRef = useRef(false);
 
   // 식당 변경 시 댓글 조회 및 추천 여부 확인, 수정 폼 초기화
   useEffect(() => {
@@ -90,9 +91,12 @@ export default function DetailPanel({
       });
   }, [restaurant]);
 
-  // 댓글 추가 시 스크롤 최하단 이동
+  // 새 댓글 등록 직후에만 댓글 목록 안에서 아래로 스크롤 (패널 전체 스크롤 방지)
   useEffect(() => {
-    commentsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!scrollOnNextRef.current) return;
+    scrollOnNextRef.current = false;
+    const el = commentListRef.current;
+    el?.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [comments]);
 
   // 추천하기/취소하기 버튼 클릭
@@ -158,6 +162,7 @@ export default function DetailPanel({
       const newComment: Comment = await res.json();
       setComments((prev) => [...prev, newComment]);
       setContent("");
+      scrollOnNextRef.current = true; // 등록한 댓글이 보이도록 목록 하단으로
     } catch (err: any) {
       alert(err.message || "댓글 등록 중 오류가 발생했습니다.");
     } finally {
@@ -314,7 +319,7 @@ export default function DetailPanel({
   // 식당 수정 UI
   if (isEditingRestaurant) {
     return (
-      <div className="detail-panel">
+      <div className="detail-panel" style={{ borderColor: color }}>
         <header className="detail-header">
           <div className="title-row">
             <h2>식당 정보 수정</h2>
@@ -425,7 +430,7 @@ export default function DetailPanel({
 
   // 일반 식당 보기 UI
   return (
-    <div className="detail-panel">
+    <div className="detail-panel" style={{ borderColor: color }}>
       {/* 헤더 */}
       <header className="detail-header">
         <div className="title-area">
@@ -525,7 +530,7 @@ export default function DetailPanel({
         <section className="reviews-section">
           <h3>💬 댓글 및 후기 <span className="review-count">({comments.length})</span></h3>
 
-          <div className="comment-list">
+          <div className="comment-list" ref={commentListRef}>
             {loadingComments && <p className="comment-muted">댓글 불러오는 중...</p>}
             {!loadingComments && comments.length === 0 && (
               <p className="comment-muted">첫 댓글을 달아보세요! 이 맛집에 대한 후기를 공유해주세요.</p>
@@ -601,7 +606,6 @@ export default function DetailPanel({
                 )}
               </div>
             ))}
-            <div ref={commentsEndRef} />
           </div>
 
           {/* 댓글 작성 폼 */}
