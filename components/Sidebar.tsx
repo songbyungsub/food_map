@@ -167,7 +167,7 @@ export default function Sidebar({
           <span className="sheet-handle-bar" />
         </div>
         <header className="sidebar-header">
-          <h1>🍴 광화문EAST 맛집 지도</h1>
+          <h1>🍴 KT광화문빌딩 맛집 지도</h1>
           <div className="sidebar-header-actions">
             <button className="add-btn" onClick={onAddClick}>
               + 식당 추가
@@ -249,7 +249,7 @@ export default function Sidebar({
           })}
       </div>
       <div className="sidebar-footer">
-        Made by AX운영혁신팀
+        © 2026 AX운영혁신팀
       </div>
     </aside>
   );
