@@ -256,7 +256,7 @@ body > div {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 300; /* 바텀시트(150)·상세 패널(200)보다 위 */
 }
 .modal {
   background: #fff;
