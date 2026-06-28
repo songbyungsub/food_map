@@ -39,7 +39,7 @@ export default function Sidebar({
   const [sheetY, setSheetY] = useState(0); // translateY(px), 클수록 아래로 내려감
   const [dragging, setDragging] = useState(false);
   const snapRef = useRef({ full: 0, half: 0, peek: 0 });
-  const dragRef = useRef({ startTouchY: 0, startSheetY: 0 });
+  const dragRef = useRef({ startTouchY: 0, startSheetY: 0, active: false });
 
   // 뷰포트 기준 스냅 지점 계산
   const computeSnaps = useCallback(() => {
@@ -72,18 +72,25 @@ export default function Sidebar({
 
   const onHandleTouchStart = (e: ReactTouchEvent) => {
     if (!isMobile) return;
-    dragRef.current = { startTouchY: e.touches[0].clientY, startSheetY: sheetY };
+    // 버튼(추가 등) 탭은 드래그로 가로채지 않음
+    if ((e.target as HTMLElement).closest("button")) return;
+    dragRef.current = {
+      startTouchY: e.touches[0].clientY,
+      startSheetY: sheetY,
+      active: true,
+    };
     setDragging(true);
   };
   const onHandleTouchMove = (e: ReactTouchEvent) => {
-    if (!isMobile) return;
+    if (!isMobile || !dragRef.current.active) return;
     const { full, peek } = snapRef.current;
     const dy = e.touches[0].clientY - dragRef.current.startTouchY;
     const y = Math.max(full, Math.min(peek, dragRef.current.startSheetY + dy));
     setSheetY(y);
   };
   const onHandleTouchEnd = () => {
-    if (!isMobile) return;
+    if (!isMobile || !dragRef.current.active) return;
+    dragRef.current.active = false;
     setDragging(false);
     const { full, half, peek } = snapRef.current;
     const moved = Math.abs(sheetY - dragRef.current.startSheetY);
@@ -120,29 +127,31 @@ export default function Sidebar({
   return (
     <aside className={`sidebar ${open ? "" : "sidebar-collapsed"}`} style={sheetStyle}>
       <div
-        className="sheet-handle"
+        className="sheet-grab"
         onTouchStart={onHandleTouchStart}
         onTouchMove={onHandleTouchMove}
         onTouchEnd={onHandleTouchEnd}
       >
-        <span className="sheet-handle-bar" />
-      </div>
-      <header className="sidebar-header">
-        <h1>🍴 광화문EAST 맛집 지도</h1>
-        <div className="sidebar-header-actions">
-          <button className="add-btn" onClick={onAddClick}>
-            + 식당 추가
-          </button>
-          <button
-            className="collapse-btn"
-            onClick={onToggle}
-            aria-label="목록 접기"
-            title="목록 접기"
-          >
-            <span className="arrow-icon">«</span>
-          </button>
+        <div className="sheet-handle">
+          <span className="sheet-handle-bar" />
         </div>
-      </header>
+        <header className="sidebar-header">
+          <h1>🍴 광화문EAST 맛집 지도</h1>
+          <div className="sidebar-header-actions">
+            <button className="add-btn" onClick={onAddClick}>
+              + 식당 추가
+            </button>
+            <button
+              className="collapse-btn"
+              onClick={onToggle}
+              aria-label="목록 접기"
+              title="목록 접기"
+            >
+              <span className="arrow-icon">«</span>
+            </button>
+          </div>
+        </header>
+      </div>
 
       <div className="filter-row">
         <button
