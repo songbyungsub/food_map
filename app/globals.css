@@ -314,6 +314,466 @@ body > div {
   margin: 0 0 10px;
 }
 
+/* ===== 상세 정보 패널 ===== */
+.detail-panel {
+  width: 360px;
+  min-width: 360px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e9ecef;
+  background: #fff;
+  z-index: 10;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.detail-header {
+  padding: 16px;
+  border-bottom: 1px solid #f1f3f5;
+  background: #fff;
+}
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.title-row h2 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 700;
+  color: #212529;
+  word-break: keep-all;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: #adb5bd;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.close-btn:hover {
+  color: #495057;
+}
+.cat-badge {
+  display: inline-block;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+.detail-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f3f5;
+}
+.info-row {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.info-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.info-text {
+  color: #495057;
+}
+.address-main {
+  font-weight: 500;
+  color: #343a40;
+}
+.address-sub {
+  font-size: 11px;
+  color: #868e96;
+  margin-top: 1px;
+}
+.font-memo {
+  color: #e8590c;
+  background: #fff9db;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+.link-map {
+  color: #1971c2;
+  text-decoration: none;
+  font-weight: 500;
+}
+.link-map:hover {
+  text-decoration: underline;
+}
+
+/* 추천 섹션 */
+.recommend-section {
+  padding: 14px 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #e9ecef;
+}
+.recommend-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.heart-icon {
+  font-size: 16px;
+}
+.recommend-text {
+  color: #495057;
+}
+.recommend-text strong {
+  color: #e8590c;
+}
+.recommend-action-btn {
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+.recommend-action-btn:hover {
+  background: #f1f3f5;
+  border-color: #adb5bd;
+}
+.recommend-action-btn.recommended {
+  background: #e8590c;
+  color: #fff;
+  border-color: #e8590c;
+  cursor: pointer;
+}
+.recommend-action-btn.recommended:hover {
+  background: #d9480f;
+  border-color: #d9480f;
+}
+
+/* 댓글 섹션 */
+.reviews-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.reviews-section h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #343a40;
+}
+.review-count {
+  font-size: 12px;
+  color: #868e96;
+  font-weight: normal;
+}
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.comment-muted {
+  font-size: 12px;
+  color: #adb5bd;
+  text-align: center;
+  padding: 16px 0;
+  margin: 0;
+}
+.comment-item {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.comment-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+.comment-author {
+  font-weight: 600;
+  color: #495057;
+}
+.comment-time {
+  color: #adb5bd;
+}
+.comment-body {
+  font-size: 13px;
+  color: #343a40;
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* 댓글 작성 폼 */
+.comment-form {
+  border-top: 1px solid #f1f3f5;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.comment-form input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.comment-form textarea {
+  width: 100%;
+  height: 60px;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 13px;
+  resize: none;
+  font-family: inherit;
+}
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: #e8590c;
+}
+.comment-submit-btn {
+  background: #495057;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.comment-submit-btn:hover {
+  background: #343a40;
+}
+.comment-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* 식당 리스트 내 추천 뱃지 */
+.rest-recommend-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #fff0f6;
+  color: #d6336c;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  border: 1px solid #ffdeeb;
+}
+
+/* 식당 수정/삭제 버튼 */
+.restaurant-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.rest-edit-btn,
+.rest-delete-btn {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+.rest-edit-btn:hover {
+  background: #f1f3f5;
+  border-color: #adb5bd;
+}
+.rest-delete-btn {
+  color: #e03131;
+  border-color: #ffc9c9;
+}
+.rest-delete-btn:hover {
+  background: #fff5f5;
+  border-color: #ff8787;
+}
+
+/* 식당 정보 수정 폼 */
+.edit-restaurant-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 9px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.save-btn {
+  background: #e8590c;
+  color: #fff;
+  border: none;
+}
+.save-btn:hover {
+  background: #d9480f;
+}
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.cancel-btn {
+  background: #fff;
+  border: 1px solid #ced4da;
+  color: #495057;
+}
+.cancel-btn:hover {
+  background: #f8f9fa;
+}
+
+/* 댓글 목록 수정 관련 */
+.comment-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.comment-actions {
+  display: flex;
+  gap: 6px;
+}
+.comment-action-link {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #868e96;
+  cursor: pointer;
+  padding: 0;
+}
+.comment-action-link:hover {
+  color: #212529;
+  text-decoration: underline;
+}
+.comment-action-link.delete {
+  color: #fa5252;
+}
+.comment-action-link.delete:hover {
+  color: #e03131;
+}
+
+/* 댓글 수정 폼 */
+.comment-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.comment-edit-form input[type="text"] {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.comment-edit-form textarea {
+  width: 100%;
+  height: 50px;
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 12px;
+  resize: none;
+  font-family: inherit;
+}
+.comment-edit-form input:focus,
+.comment-edit-form textarea:focus {
+  outline: none;
+  border-color: #e8590c;
+}
+.comment-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.comment-save-btn,
+.comment-cancel-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.comment-save-btn {
+  background: #e8590c;
+  color: #fff;
+  border: none;
+}
+.comment-save-btn:hover {
+  background: #d9480f;
+}
+.comment-save-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.comment-cancel-btn {
+  background: #fff;
+  border: 1px solid #ced4da;
+  color: #495057;
+}
+.comment-cancel-btn:hover {
+  background: #f8f9fa;
+}
+
 @media (max-width: 720px) {
   .app {
     flex-direction: column;
@@ -327,5 +787,20 @@ body > div {
   }
   .map-wrap {
     height: 55%;
+  }
+  .detail-panel {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 55%;
+    border-right: none;
+    border-top: 1px solid #e9ecef;
+    z-index: 200;
+    animation: slideUp 0.2s ease-out;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

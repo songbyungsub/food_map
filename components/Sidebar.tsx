@@ -36,7 +36,7 @@ export default function Sidebar({
   return (
     <aside className="sidebar">
       <header className="sidebar-header">
-        <h1>🍴 회사 맛집 지도</h1>
+        <h1>🍴 광화문EAST 맛집 지도</h1>
         <button className="add-btn" onClick={onAddClick}>
           + 식당 추가
         </button>
@@ -89,7 +89,12 @@ export default function Sidebar({
                       className={`rest-item ${selectedId === r.id ? "rest-item-active" : ""}`}
                       onClick={() => onSelect(r.id)}
                     >
-                      <div className="rest-name">{r.name}</div>
+                      <div className="rest-name">
+                        {r.name}
+                        {r.recommend_count !== undefined && r.recommend_count > 0 && (
+                          <span className="rest-recommend-badge">👍 {r.recommend_count}</span>
+                        )}
+                      </div>
                       {(r.road_address || r.address) && (
                         <div className="rest-addr">{r.road_address || r.address}</div>
                       )}

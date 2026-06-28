@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import KakaoMap from "@/components/KakaoMap";
 import Sidebar from "@/components/Sidebar";
 import AddRestaurantForm from "@/components/AddRestaurantForm";
+import DetailPanel from "@/components/DetailPanel";
 import { COMPANY_CENTER, COMPANY_NAME } from "@/lib/config";
 import type { Category, Restaurant } from "@/lib/types";
 
@@ -43,11 +44,33 @@ export default function Home() {
     [restaurants, activeCategory]
   );
 
+  const selectedRestaurant = useMemo(
+    () => restaurants.find((r) => r.id === selectedId) || null,
+    [restaurants, selectedId]
+  );
+
   const handleSelect = useCallback((id: string) => setSelectedId(id), []);
 
   const handleAdded = useCallback((r: Restaurant) => {
     setRestaurants((prev) => [r, ...prev]);
     setSelectedId(r.id);
+  }, []);
+
+  const handleRecommend = useCallback((id: string, newCount: number) => {
+    setRestaurants((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, recommend_count: newCount } : r))
+    );
+  }, []);
+
+  const handleUpdate = useCallback((updated: Restaurant) => {
+    setRestaurants((prev) =>
+      prev.map((r) => (r.id === updated.id ? updated : r))
+    );
+  }, []);
+
+  const handleDelete = useCallback((id: string) => {
+    setRestaurants((prev) => prev.filter((r) => r.id !== id));
+    setSelectedId(null);
   }, []);
 
   return (
@@ -62,11 +85,22 @@ export default function Home() {
         selectedId={selectedId}
       />
 
+      {selectedRestaurant && (
+        <DetailPanel
+          restaurant={selectedRestaurant}
+          onClose={() => setSelectedId(null)}
+          onRecommend={handleRecommend}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+        />
+      )}
+
       <KakaoMap
         restaurants={visibleRestaurants}
         focusId={selectedId}
         center={COMPANY_CENTER}
         centerName={COMPANY_NAME}
+        onSelect={handleSelect}
       />
 
       {showAddForm && (

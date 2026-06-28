@@ -177,7 +177,7 @@ export default function AddRestaurantForm({ onClose, onAdded }: AddRestaurantFor
               <span>메모 (선택)</span>
               <input
                 type="text"
-                placeholder="예: 점심 웨이팅 길어요, 돈까스 추천"
+                placeholder="예: 점심 웨이팅 길어요, 대표메뉴 추천"
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
               />

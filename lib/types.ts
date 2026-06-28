@@ -9,10 +9,19 @@ export interface Restaurant {
   memo: string | null;
   place_url: string | null;
   created_at: string;
+  recommend_count?: number; // 추천수
 }
 
-// 새 식당 추가 시 클라이언트가 보내는 형태 (서버에서 id/created_at 생성)
-export type NewRestaurant = Omit<Restaurant, "id" | "created_at">;
+export interface Comment {
+  id: string;
+  restaurant_id: string;
+  author: string;
+  content: string;
+  created_at: string;
+}
+
+// 새 식당 추가 시 클라이언트가 보내는 형태 (서버에서 id/created_at/recommend_count 생성)
+export type NewRestaurant = Omit<Restaurant, "id" | "created_at" | "recommend_count">;
 
 export const CATEGORIES = [
   "한식",
