@@ -11,6 +11,8 @@ interface SidebarProps {
   onSelect: (id: string) => void;
   onAddClick: () => void;
   selectedId: string | null;
+  open: boolean;
+  onToggle: () => void;
 }
 
 export default function Sidebar({
@@ -21,6 +23,8 @@ export default function Sidebar({
   onSelect,
   onAddClick,
   selectedId,
+  open,
+  onToggle,
 }: SidebarProps) {
   // 카테고리별 그룹핑
   const grouped = useMemo(() => {
@@ -34,12 +38,22 @@ export default function Sidebar({
     activeCategory === "전체" ? CATEGORIES : CATEGORIES.filter((c) => c === activeCategory);
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${open ? "" : "sidebar-collapsed"}`}>
       <header className="sidebar-header">
         <h1>🍴 광화문EAST 맛집 지도</h1>
-        <button className="add-btn" onClick={onAddClick}>
-          + 식당 추가
-        </button>
+        <div className="sidebar-header-actions">
+          <button className="add-btn" onClick={onAddClick}>
+            + 식당 추가
+          </button>
+          <button
+            className="collapse-btn"
+            onClick={onToggle}
+            aria-label="목록 접기"
+            title="목록 접기"
+          >
+            <span className="arrow-icon">«</span>
+          </button>
+        </div>
       </header>
 
       <div className="filter-row">

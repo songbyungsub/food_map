@@ -19,6 +19,7 @@ body > div {
 
 .app {
   display: flex;
+  position: relative;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -26,13 +27,69 @@ body > div {
 
 /* ===== 사이드바 ===== */
 .sidebar {
-  width: 340px;
-  min-width: 340px;
+  width: 400px;
+  min-width: 400px;
   height: 100%;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #e9ecef;
   background: #fff;
+  transition: width 0.25s ease, min-width 0.25s ease;
+}
+
+/* 접힌 상태 (데스크톱: 가로로 접힘) */
+.sidebar-collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-right: none;
+}
+
+.sidebar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.collapse-btn {
+  border: 1px solid #dee2e6;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: #495057;
+  cursor: pointer;
+  padding: 7px 10px;
+  border-radius: 8px;
+}
+.collapse-btn:hover {
+  background: #f1f3f5;
+  border-color: #adb5bd;
+}
+
+/* 접혔을 때 지도 위에 뜨는 열기 버튼 */
+.sidebar-open-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #343a40;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.sidebar-open-btn:hover {
+  background: #f8f9fa;
+}
+
+/* 화살표 아이콘 (데스크톱: «/» 그대로 좌우, 모바일: 90도 회전해 상하) */
+.arrow-icon {
+  display: inline-block;
+  line-height: 1;
 }
 
 .sidebar-header {
@@ -46,6 +103,7 @@ body > div {
 .sidebar-header h1 {
   font-size: 18px;
   margin: 0;
+  word-break: keep-all;
 }
 
 .add-btn {
@@ -794,9 +852,24 @@ body > div {
     height: 45%;
     border-right: none;
     border-bottom: 1px solid #e9ecef;
+    transition: height 0.25s ease;
+  }
+  /* 접힌 상태 (모바일: 세로로 접힘) */
+  .sidebar-collapsed {
+    height: 0;
+    min-height: 0;
+    border-bottom: none;
   }
   .map-wrap {
     height: 55%;
+  }
+  /* 사이드바가 접히면 지도가 전체를 채움 */
+  .app.sidebar-hidden .map-wrap {
+    height: 100%;
+  }
+  /* 모바일에서는 화살표를 회전: « → 위(▲), » → 아래(▼) */
+  .arrow-icon {
+    transform: rotate(90deg);
   }
   .detail-panel {
     position: absolute;

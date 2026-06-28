@@ -21,9 +21,11 @@ declare global {
     class Map {
       constructor(container: HTMLElement, options: { center: LatLng; level: number });
       setCenter(latlng: LatLng): void;
+      getCenter(): LatLng;
       setLevel(level: number): void;
       setBounds(bounds: LatLngBounds): void;
       panTo(latlng: LatLng): void;
+      relayout(): void;
     }
 
     class Size {

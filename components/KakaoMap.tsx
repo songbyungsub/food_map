@@ -47,6 +47,21 @@ export default function KakaoMap({
     });
   }, [loaded, center.lat, center.lng, centerName]);
 
+  // 컨테이너 크기 변경 시 지도 다시 그리기 (사이드바 접기/펼치기·창 크기 변경 대응)
+  useEffect(() => {
+    if (!loaded || !containerRef.current) return;
+    const map = mapRef.current;
+    if (!map) return;
+
+    const observer = new ResizeObserver(() => {
+      const c = map.getCenter();
+      map.relayout(); // 늘어난 영역 타일 렌더링
+      map.setCenter(c); // 중심 유지
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [loaded]);
+
   // 식당 마커 렌더링 (목록 변경 시 갱신)
   useEffect(() => {
     if (!loaded || !mapRef.current) return;

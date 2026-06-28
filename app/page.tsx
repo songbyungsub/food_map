@@ -14,6 +14,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState<Category | "전체">("전체");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // 식당 목록 로드
   useEffect(() => {
@@ -74,7 +75,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="app">
+    <main className={`app ${sidebarOpen ? "" : "sidebar-hidden"}`}>
       <Sidebar
         restaurants={restaurants}
         loading={loading}
@@ -83,7 +84,19 @@ export default function Home() {
         onSelect={handleSelect}
         onAddClick={() => setShowAddForm(true)}
         selectedId={selectedId}
+        open={sidebarOpen}
+        onToggle={() => setSidebarOpen((v) => !v)}
       />
+
+      {!sidebarOpen && (
+        <button
+          className="sidebar-open-btn"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="목록 열기"
+        >
+          목록 <span className="arrow-icon">»</span>
+        </button>
+      )}
 
       {selectedRestaurant && (
         <DetailPanel
