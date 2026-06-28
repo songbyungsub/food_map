@@ -86,10 +86,21 @@ body > div {
   background: #f8f9fa;
 }
 
-/* 화살표 아이콘 (데스크톱: «/» 그대로 좌우, 모바일: 90도 회전해 상하) */
+/* 화살표 아이콘 (데스크톱 좌우 «/») */
 .arrow-icon {
   display: inline-block;
   line-height: 1;
+}
+
+/* 바텀시트 드래그 핸들 (모바일에서만 노출) */
+.sheet-handle {
+  display: none;
+}
+.sheet-handle-bar {
+  width: 42px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ced4da;
 }
 
 .sidebar-header {
@@ -843,42 +854,53 @@ body > div {
 }
 
 @media (max-width: 720px) {
-  .app {
-    flex-direction: column;
+  /* 지도는 화면 전체를 채우고, 목록은 하단 바텀시트로 (네이버 지도 스타일) */
+  .map-wrap {
+    height: 100%;
+    width: 100%;
   }
+
   .sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
     min-width: 0;
-    height: 45%;
-    border-right: none;
-    border-bottom: 1px solid #e9ecef;
-    transition: height 0.25s ease;
+    height: 88vh;
+    border: none;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.18);
+    z-index: 150;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* transform 값은 JS가 인라인으로 지정 (드래그/스냅) */
   }
-  /* 접힌 상태 (모바일: 세로로 접힘) */
-  .sidebar-collapsed {
-    height: 0;
-    min-height: 0;
-    border-bottom: none;
+  /* 데스크톱 전용 접기/펼치기 버튼은 모바일에서 숨김 (시트 드래그로 대체) */
+  .collapse-btn,
+  .sidebar-open-btn {
+    display: none;
   }
-  .map-wrap {
-    height: 55%;
+
+  /* 드래그 핸들 노출 */
+  .sheet-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0 6px;
+    flex-shrink: 0;
+    cursor: grab;
+    touch-action: none; /* 드래그 중 페이지 스크롤 방지 */
   }
-  /* 사이드바가 접히면 지도가 전체를 채움 */
-  .app.sidebar-hidden .map-wrap {
-    height: 100%;
-  }
-  /* 모바일에서는 화살표를 회전: « → 위(▲), » → 아래(▼) */
-  .arrow-icon {
-    transform: rotate(90deg);
-  }
+
   .detail-panel {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 55%;
-    border-right: none;
+    height: 62%;
+    border: none;
     border-top: 1px solid #e9ecef;
+    border-radius: 16px 16px 0 0;
     z-index: 200;
     animation: slideUp 0.2s ease-out;
   }
